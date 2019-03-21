@@ -1,0 +1,5 @@
+CONFIG = {
+  'from': '',
+  'to': [''],
+  'password': ''
+}
