@@ -13,7 +13,9 @@ if args.frequency != 'daily' and args.frequency != 'weekly':
 
 # Get data from Google Sheet
 
-# Transform data into markdown and plaintext
+# Transform data into markdown
+
+# Transform markdown into rich text and plaintext
 
 # Create email
 

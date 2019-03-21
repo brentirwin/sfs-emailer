@@ -1,6 +1,4 @@
 config.py
-config-mine.py
 __pycache__/
 .*.swp
 *.pyc
-
