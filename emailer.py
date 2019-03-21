@@ -1,10 +1,26 @@
+import sys
+import argparse
 import smtplib
-from config import CONFIG
+from config import email_config
 
-sent_from = CONFIG['from']
-to = CONFIG['to']
+# Parse arguments
+
+parser = argparse.ArgumentParser()
+parser.add_argument("frequency", help="'daily' or 'weekly'", type=str)
+args = parser.parse_args()
+if args.frequency != 'daily' and args.frequency != 'weekly':
+  sys.exit('format: python emailer.py <daily/weekly>')
+
+# Get data from Google Sheet
+
+# Transform data into markdown and plaintext
+
+# Create email
+
+sent_from = email_config['from']
+to = email_config['to']
 subject = 'test'
-body = 'Sent an email from Python'
+body = 'Sent an email from Python' + args.frequency
 
 email_text = """\
 From: %s
@@ -14,8 +30,10 @@ Subject: %s
 %s
 """ % (sent_from, ", ".join(to), subject, body)
 
-gmail_user = CONFIG['from']
-gmail_password = CONFIG['password']
+# Send email
+
+gmail_user = email_config['from']
+gmail_password = email_config['password']
 
 try:
   server_ssl = smtplib.SMTP_SSL('smtp.gmail.com', 465) 
