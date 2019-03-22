@@ -10,6 +10,7 @@ from email.mime.text import MIMEText
 from .enums import Frequency
 from .config import email_config
 from .create_email import createEmail
+from .addresses import addresses
 
 from .sample_data import sample_data
 
@@ -27,11 +28,9 @@ def email(frequency):
   else:
     subject = 'Weekly' + subject
 
-  print(email_config['to'])
-
   email = MIMEMultipart('alternative')
   email['From'] = email_config['from']
-  email['To'] = ','.join(email_config['to'])
+  email['To'] = addresses()
   email['Subject'] = subject
 
   email.attach(MIMEText(markdown_content, 'plain'))
@@ -42,7 +41,6 @@ def email(frequency):
   gmail_user = email_config['from']
   gmail_password = email_config['password']
 
-
   try:
     server_ssl = smtplib.SMTP_SSL('smtp.gmail.com', 465) 
     server_ssl.ehlo()
@@ -52,25 +50,8 @@ def email(frequency):
                         email.as_string())
     server_ssl.close()
     print('Email sent!')
+    print(email['To'])
   except Exception as err:
     print('Something went wrong...')
     print(err)
     traceback.print_exc()
-
-'''
-  # Create email
-
-  sent_from = email_config['from']
-  to = email_config['to']
-  subject = 'test'
-  body = 'Sent an email from Python' + args.frequency
-
-  email_text = """\
-  From: %s
-  To: %s
-  Subject: %s
-
-  %s
-  """ % (sent_from, ", ".join(to), subject, body)
-'''
- 
