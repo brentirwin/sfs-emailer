@@ -1,7 +1,12 @@
 import sys
 import argparse
 import smtplib
+
+from enums import Frequency
 from config import email_config
+from create_email import createEmail
+
+from sample_data import sample_data
 
 # Parse arguments
 
@@ -11,12 +16,25 @@ args = parser.parse_args()
 if args.frequency != 'daily' and args.frequency != 'weekly':
   sys.exit('format: python emailer.py <daily/weekly>')
 
+frequency = None
+if args.frequency == 'daily':
+  frequency = Frequency.DAILY
+else:
+  frequency = Frequency.WEEKLY
+
 # Get data from Google Sheet
+
+data = sample_data
 
 # Transform data into markdown
 
+raw_markdown = createEmail(frequency, data)
+
 # Transform markdown into rich text and plaintext
 
+
+
+'''
 # Create email
 
 sent_from = email_config['from']
@@ -47,3 +65,4 @@ try:
 except Exception as e:
   print('Something went wrong...')
   print(e)
+'''
