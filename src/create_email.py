@@ -1,5 +1,5 @@
 from dotmap import DotMap
-from enums import Frequency
+from .enums import Frequency
 
 def createEmail(frequency, data):
 
