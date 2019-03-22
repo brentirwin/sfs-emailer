@@ -1,6 +1,11 @@
 import sys
-import argparse
 import smtplib
+import traceback
+
+import markdown
+
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 from .enums import Frequency
 from .config import email_config
@@ -14,13 +19,45 @@ def email(frequency):
   data = sample_data
 
   # Transform data into markdown
-  raw_markdown = createEmail(frequency, data)
+  markdown_content = createEmail(frequency, data)
+  html_content = markdown.markdown(markdown_content)
+  subject = ' call - ' + data[0]['date']
+  if frequency == Frequency.DAILY:
+    subject = 'Daily' + subject
+  else:
+    subject = 'Weekly' + subject
 
-  # Transform markdown into rich text and plaintext
+  print(email_config['to'])
 
-  print(raw_markdown)
+  email = MIMEMultipart('alternative')
+  email['From'] = email_config['from']
+  email['To'] = ','.join(email_config['to'])
+  email['Subject'] = subject
 
-  '''
+  email.attach(MIMEText(markdown_content, 'plain'))
+  email.attach(MIMEText(html_content, 'html'))
+
+  # Send email
+
+  gmail_user = email_config['from']
+  gmail_password = email_config['password']
+
+
+  try:
+    server_ssl = smtplib.SMTP_SSL('smtp.gmail.com', 465) 
+    server_ssl.ehlo()
+    server_ssl.login(gmail_user, gmail_password)
+    server_ssl.sendmail(email['From'],
+                        email['To'],
+                        email.as_string())
+    server_ssl.close()
+    print('Email sent!')
+  except Exception as err:
+    print('Something went wrong...')
+    print(err)
+    traceback.print_exc()
+
+'''
   # Create email
 
   sent_from = email_config['from']
@@ -35,20 +72,5 @@ def email(frequency):
 
   %s
   """ % (sent_from, ", ".join(to), subject, body)
-
-  # Send email
-
-  gmail_user = email_config['from']
-  gmail_password = email_config['password']
-
-  try:
-    server_ssl = smtplib.SMTP_SSL('smtp.gmail.com', 465) 
-    server_ssl.ehlo()
-    server_ssl.login(gmail_user, gmail_password)
-    server_ssl.sendmail(sent_from, to, email_text)
-    server_ssl.close()
-    print('Email sent!')
-  except Exception as e:
-    print('Something went wrong...')
-    print(e)
-  '''
+'''
+ 

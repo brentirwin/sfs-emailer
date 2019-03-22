@@ -46,18 +46,18 @@ def createEmail(frequency, data):
 
         # Create Markdown email
 
-        return '\n'.join([
+        return '  \n'.join([
             '## ' + d.date + ' at ' + d.time,
             '*Romeo and Juliet* at ' + d.location,
             '',
             'Drink-up location: ' + d.drink_up,
             '',
-            'Drink-up call: ',
-            'Ensemble call: ',
-            'Fight/dance call: ',
-            'Mic check: ',
-            'House open: ',
-            '',
+#            'Drink-up call: ',
+#            'Ensemble call: ',
+#            'Fight/dance call: ',
+#            'Mic check: ',
+#            'House open: ',
+#            '',
             'Benvolia - ' + c.benvolia,
             'Juliet - ' + c.juliet,
             'Mercutio - ' + c.mercutio,
@@ -74,10 +74,10 @@ def createEmail(frequency, data):
         c = nextCast(current_cast, n.cast)
 
         return '\n'.join([
-            '## Next Show',
+            '### Next Show',
             n.date + ' at ' + n.location,
             '',
-            '\n'.join(c)
+            '  \n'.join(c)
         ])
 
     def dailyCall():
