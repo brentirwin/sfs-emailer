@@ -1,6 +1,8 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
+from .config import gdrive_config
+
 def addresses():
   # API Client
   scope = ['https://www.googleapis.com/auth/spreadsheets']
@@ -10,6 +12,6 @@ def addresses():
 
   # Addresses
   sheet = client.open_by_key(
-          '1Am4mmcy9YzCYlRIJRI2-u1wsJlnpebcxqXBoFZAhvfA').worksheet(
+          gdrive_config['sheets']).worksheet(
           'Addresses')
   return ', '.join(sheet.col_values(1))
