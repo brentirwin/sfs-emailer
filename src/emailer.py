@@ -11,16 +11,25 @@ from .enums import Frequency
 from .config import email_config
 from .create_email import createEmail
 from .addresses import addresses
+from .rota import get_call 
 
 from .sample_data import sample_data
 
 def email(frequency):
 
   # Get data from Google Sheet
-  data = sample_data
+  data = get_call(frequency)
+  if data == None:
+    if frequency == Frequency.DAILY:
+      print('no show')
+      return
 
   # Transform data into markdown
-  markdown_content = createEmail(frequency, data)
+  markdown_content = ''
+  if data == None: # Must be weekly in this case
+    markdown_content = 'No shows this week!'
+  else:
+    markdown_content = createEmail(frequency, data)
   html_content = markdown.markdown(markdown_content)
   subject = ' call - ' + data[0]['date']
   if frequency == Frequency.DAILY:
@@ -28,6 +37,9 @@ def email(frequency):
   else:
     subject = 'Weekly' + subject
 
+  print(markdown_content)
+
+'''
   email = MIMEMultipart('alternative')
   email['From'] = email_config['from']
   email['To'] = addresses()
@@ -55,3 +67,4 @@ def email(frequency):
     print('Something went wrong...')
     print(err)
     traceback.print_exc()
+'''    
