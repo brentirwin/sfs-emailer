@@ -1,6 +1,7 @@
 import sys
 import smtplib
 import traceback
+import datetime
 
 import markdown
 
@@ -30,11 +31,14 @@ def email(frequency):
   else:
     markdown_content = createEmail(frequency, data)
   html_content = markdown.markdown(markdown_content)
-  subject = ' call'
+  subject = ' call - '
   if frequency == Frequency.DAILY:
-    subject = 'Daily' + subject
+    now = datetime.datetime.now().strftime('%B %d')
+    subject = 'Daily' + subject + now
   else:
-    subject = 'Weekly' + subject
+    now = datetime.datetime.now().strftime('%B %d')
+    then = (datetime.datetime.now() + datetime.timedelta(weeks=1)).strftime('%B %d')
+    subject = 'Weekly' + subject + now + '-' + then
 
   print(markdown_content)
 
