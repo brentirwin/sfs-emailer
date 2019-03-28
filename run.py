@@ -8,27 +8,38 @@ from src.enums import Frequency
 from src.emailer import email
 
 parser = argparse.ArgumentParser()
-parser.add_argument("frequency", help="'daily' or 'weekly'", type=str)
-parser.add_argument('-e', '--emailerrors', help='email errors to emergency contact', action='store_true')
+parser.add_argument('-w', '--weekly',
+                    help='Sends weekly call, daily is default',
+                    action='store_true')
+parser.add_argument('-e', '--emailerrors',
+                    help='email errors to emergency contact',
+                    action='store_true')
+parser.add_argument('-s', '--sample',
+                    help='use sample data',
+                    action='store_true')
+parser.add_argument('-t', '--test',
+                    help='test, do not send out emails',
+                    action='store_true')
+
 args = parser.parse_args()
-if args.frequency != 'daily' and args.frequency != 'weekly':
-  sys.exit('format: python emailer.py <daily/weekly>')
 
+# Define frequency
 freq = None
-if args.frequency == 'daily':
-  freq = Frequency.DAILY
-else:
+if args.weekly:
   freq = Frequency.WEEKLY
+else:
+  freq = Frequency.DAILY
 
+# If you want errors sent to email
 if args.emailerrors:
   try:
-    email(freq)
+    email(freq, args.sample, args.test)
   except Exception as err:
     gmail_user = email_config['from']
     gmail_password = email_config['password']
 
     sent_from = gmail_user
-    to = email_config['emergency']
+    to = email_config['dev']
     subject = 'SFS Emailer Failure'
     body = err + '\n\n' + traceback.format_exc()
 
@@ -49,4 +60,4 @@ if args.emailerrors:
     except Exception as err:
       print('Couldn\'t even email you the error...')
 else:
-  email(freq)
+  email(freq, args.sample, args.test)

@@ -2,6 +2,12 @@
 
 This script pulls data from the SFS ROTA on Google Docs and generates daily and weekly call emails as necessary.
 
+## Arguments
+* `-w`: Sends weekly call, daily is default.
+* `-e`: Email the developer if an error happens.
+* `-s`: Use sample data and email developer.
+* `-t`: Test, print out results instead of emailing.
+
 ## Setup
 
 Install dependencies:
@@ -11,8 +17,8 @@ pip install -r requirements.txt
 
 Add these lines to `crontab -e`:
 ```
-5 6 * * * /PATH/TO/SCRIPT/run.py daily -e
-* 6 1 * * /PATH/TO/SCRIPT/run.py weekly -e
+5 6 * * * /PATH/TO/SCRIPT/run.py -e
+* 6 1 * * /PATH/TO/SCRIPT/run.py -ew
 ```
 to run the daily script every morning at 6:05am and the weekly script every Monday morning at 6am.
 
@@ -23,7 +29,7 @@ Create a file at `src/config.py` with the following format:
 email_config = {
   'from': '',
   'password': '',
-  'emergency': '' # Emergency contact if emails fail
+  'dev': '' # developer's email address
 }
 
 gdrive_config = {

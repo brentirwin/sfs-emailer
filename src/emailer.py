@@ -14,11 +14,9 @@ from .create_email import createEmail
 from .addresses import addresses
 from .rota import get_call 
 
-from .sample_data import sample_data
-
-def email(frequency):
+def email(frequency, sample, test):
   # Get data from Google Sheet
-  data = get_call(frequency)
+  data = get_call(frequency, sample)
   if data == None:
     if frequency == Frequency.DAILY:
       print('no show')
@@ -31,6 +29,8 @@ def email(frequency):
   else:
     markdown_content = createEmail(frequency, data)
   html_content = markdown.markdown(markdown_content)
+
+  # Format subject line
   subject = ' call - '
   if frequency == Frequency.DAILY:
     now = datetime.datetime.now().strftime('%B %d')
@@ -40,12 +40,16 @@ def email(frequency):
     then = (datetime.datetime.now() + datetime.timedelta(weeks=1)).strftime('%B %d')
     subject = 'Weekly' + subject + now + '-' + then
 
-  print(markdown_content)
+  # If it's a test, just print it out. Don't send out email
+  if test:
+    print(markdown_content)
+    return
 
-'''
+  # Create email
+
   email = MIMEMultipart('alternative')
   email['From'] = email_config['from']
-  email['To'] = addresses()
+  email['To'] = addresses() if not sample else email_config['dev']
   email['Subject'] = subject
 
   email.attach(MIMEText(markdown_content, 'plain'))
@@ -70,4 +74,3 @@ def email(frequency):
     print('Something went wrong...')
     print(err)
     traceback.print_exc()
-'''

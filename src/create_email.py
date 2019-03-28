@@ -93,7 +93,6 @@ def getNext(next_data, current_cast):
     ])
 
 def dailyCall(data):
-    print('I\'m calling dailyCall()')
     d = data[0]
     return '\n\n'.join([
         getDaily(d),

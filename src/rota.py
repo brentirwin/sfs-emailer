@@ -154,9 +154,11 @@ def weekly_call(rota):
   return shows
 
 # Takes a frequency and returns a call in Dictionary format based on the current time/date
-def get_call(frequency):
-# rota = get_rota()
-  rota = sample_rota
+def get_call(frequency, sample):
+  if sample:
+    rota = sample_rota
+  else:
+    rota = get_rota()
 
   if frequency == Frequency.DAILY:
     return daily_call(rota)
