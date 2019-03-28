@@ -93,7 +93,7 @@ def single_show(show):
 # Return a daily call, which is a single show and info for the next show
 def daily_call(rota):
   # Get today's date in string form
-  now = datetime.datetime.now().strftime('%d %B %Y')
+  now = datetime.datetime.now().strftime('%A, %B %d')
 
   # Initialize the shows to be None
   show = None
@@ -125,28 +125,31 @@ def daily_call(rota):
 def weekly_call(rota):
   # Get a timestamp for now and next week
   now = datetime.datetime.now()
-  then = now + datetime.timedelta(weeks=1)
+  now = now - datetime.timedelta(days=1)
+  then = now + datetime.timedelta(days=8)
 
   # Open an empty array for the week's shows
-  shows = []
+  showNums = []
 
   # For each row, convert the date to a datetime
   for row in range(len(rota)):
-    date = datetime.datetime.strptime(rota[row][0], '%d %B %Y')
+    date = datetime.datetime.strptime(get_date(rota[row][0]), '%A, %B %d')
+    date = date.replace(year=2019)
     # If the date is past next week, quit looking
     if date > then:
       break
     # If the date is past today, append it to the list
-    if date > now:
-      show.append(row)
+    if date >= now:
+      showNums.append(row)
 
   # If there are no shows, return None
-  if len(shows) == 0:
+  if len(showNums) == 0:
     return None
-  
+ 
+  shows = []
   # Get single show data for each show in the week and return it as an array
-  for show in shows:
-    shows[show] = single_show(rota[show])
+  for show in showNums:
+    shows.append(single_show(rota[show]))
 
   return shows
 

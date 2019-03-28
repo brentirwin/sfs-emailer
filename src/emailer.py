@@ -16,14 +16,13 @@ from .rota import get_call
 from .sample_data import sample_data
 
 def email(frequency):
-
   # Get data from Google Sheet
   data = get_call(frequency)
   if data == None:
     if frequency == Frequency.DAILY:
       print('no show')
       return
-
+  
   # Transform data into markdown
   markdown_content = ''
   if data == None: # Must be weekly in this case
@@ -31,7 +30,7 @@ def email(frequency):
   else:
     markdown_content = createEmail(frequency, data)
   html_content = markdown.markdown(markdown_content)
-  subject = ' call - ' + data[0]['date']
+  subject = ' call'
   if frequency == Frequency.DAILY:
     subject = 'Daily' + subject
   else:
