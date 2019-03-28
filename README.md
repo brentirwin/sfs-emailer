@@ -18,3 +18,19 @@ to run the daily script every morning at 6:05am and the weekly script every Mond
 
 Google Drive API info saved at `src/client_secret.json` exactly as it's downloaded.
 
+Create a file at `src/config.py` with the following format:
+```python
+email_config = {
+  'from': '',
+  'password': ''
+}
+
+gdrive_config = {
+  'addresses': 'GDRIVE_DOCUMENT_ID',
+  'rota': 'GDRIVE_DOCUMENT_ID'
+}
+
+rota_config = {
+  'rows': [7, 23] # Can be updated if shows are added or removed, span of relevant content
+}
+```
