@@ -11,8 +11,8 @@ pip install -r requirements.txt
 
 Add these lines to `crontab -e`:
 ```
-5 6 * * * /PATH/TO/SCRIPT/run.py daily
-* 6 1 * * /PATH/TO/SCRIPT/run.py weekly
+5 6 * * * /PATH/TO/SCRIPT/run.py daily -e
+* 6 1 * * /PATH/TO/SCRIPT/run.py weekly -e
 ```
 to run the daily script every morning at 6:05am and the weekly script every Monday morning at 6am.
 
@@ -22,7 +22,8 @@ Create a file at `src/config.py` with the following format:
 ```python
 email_config = {
   'from': '',
-  'password': ''
+  'password': '',
+  'emergency': '' # Emergency contact if emails fail
 }
 
 gdrive_config = {

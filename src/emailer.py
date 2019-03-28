@@ -66,4 +66,4 @@ def email(frequency):
     print('Something went wrong...')
     print(err)
     traceback.print_exc()
-'''    
+'''
