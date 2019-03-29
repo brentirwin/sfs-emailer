@@ -17,8 +17,8 @@ pip install -r requirements.txt
 
 Add these lines to `crontab -e`:
 ```
-5 6 * * * /PATH/TO/SCRIPT/run.py -e
-* 6 1 * * /PATH/TO/SCRIPT/run.py -ew
+5 6 * * * /PATH/TO/SCRIPT/run.py -e > /PATH/TO/SCRIPT/log 2>&1
+* 6 1 * * /PATH/TO/SCRIPT/run.py -ew > /PATH/TO/SCRIPT/log 2>&1
 ```
 to run the daily script every morning at 6:05am and the weekly script every Monday morning at 6am.
 
