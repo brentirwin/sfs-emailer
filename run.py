@@ -2,10 +2,13 @@ import sys
 import argparse
 import smtplib
 import traceback
+import datetime
 
 from src import *
 from src.enums import Frequency
 from src.emailer import email
+
+print(datetime.datetime.now().strftime('%B %d %H:%M'))
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-w', '--weekly',
