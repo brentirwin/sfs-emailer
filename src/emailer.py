@@ -15,6 +15,7 @@ from .addresses import addresses
 from .rota import get_call 
 
 def email(frequency, sample, test):
+
   # Get data from Google Sheet
   data = get_call(frequency, sample)
   if data == None:
