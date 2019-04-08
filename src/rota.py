@@ -66,13 +66,13 @@ def get_optional(show, i, default):
 # show: 1 row of data
 def single_show(show):
   time, schedule = get_times(show[2])
-  
+
   return {
     'date': get_date(show[0]),
     'time': time,
     'schedule': schedule,
     'location': get_optional(show, 14, 'Spiderhouse Ballroom'),
-    'drink_up': get_optional(show, 17, 'TBA'),
+    'drink_up': get_optional(show, 16, 'TBA'),
     'cast': {
       'juliet':     show[3],
       'benvolia':   show[4],
