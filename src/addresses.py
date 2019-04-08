@@ -12,6 +12,6 @@ def addresses():
 
   # Addresses
   sheet = client.open_by_key(
-          gdrive_config['Addresses']).worksheet(
+          gdrive_config['addresses']).worksheet(
           'Addresses')
   return ', '.join(sheet.col_values(1))
