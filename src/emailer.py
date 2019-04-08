@@ -66,7 +66,7 @@ def email(frequency, sample, test):
     server_ssl.ehlo()
     server_ssl.login(gmail_user, gmail_password)
     server_ssl.sendmail(email['From'],
-                        email['To'],
+                        email['To'].split(', '),
                         email.as_string())
     server_ssl.close()
     print('Email sent!')
