@@ -71,7 +71,7 @@ def single_show(show):
     'date': get_date(show[0]),
     'time': time,
     'schedule': schedule,
-    'location': get_optional(show, 14, 'Spiderhouse Ballroom'),
+    'location': get_optional(show, 13, 'Spiderhouse Ballroom'),
     'drink_up': get_optional(show, 16, 'TBA'),
     'cast': {
       'juliet':     show[3],
