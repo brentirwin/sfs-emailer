@@ -20,7 +20,7 @@ def get_rota():
   # Addresses
   rota_raw = client.open_by_key(
              gdrive_config['rota']).worksheet(
-             'ROTA Ver2')
+             gdrive_config['tab'])
   rota = []
   for row in range(rota_config['rows'][0], rota_config['rows'][1]):
     values = rota_raw.row_values(row)
