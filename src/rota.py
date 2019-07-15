@@ -115,7 +115,7 @@ def daily_call(rota):
     if next_show:
       call['next_show'] = {
         'date': get_date(next_show[0]),
-        'location': get_optional(next_show, 14, 'Spiderhouse Ballroom'),
+        'location': get_optional(next_show, 13, 'Spiderhouse Ballroom'),
         'cast': list(dict.fromkeys(next_show[4:11]))
       }
     return [call]
