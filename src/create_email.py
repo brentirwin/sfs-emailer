@@ -82,15 +82,17 @@ def getDaily(day_data):
     ])
 
 def getNext(next_data, current_cast):
-    n = DotMap(next_data)
-    c = nextCast(current_cast, n.cast)
+    if next_data:
+      n = DotMap(next_data)
+      c = nextCast(current_cast, n.cast)
 
-    return '\n'.join([
-        '### Next Show',
-        n.date + ' at ' + n.location,
-        '',
-        '  \n'.join(c)
-    ])
+      return '\n'.join([
+          '### Next Show',
+          n.date + ' at ' + n.location,
+          '',
+          '  \n'.join(c)
+      ])
+    return ''
 
 def dailyCall(data):
     d = data[0]
