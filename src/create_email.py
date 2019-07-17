@@ -92,7 +92,7 @@ def getNext(next_data, current_cast):
           '',
           '  \n'.join(c)
       ])
-    return ''
+    return '### Next Show\nThe next show is on the next ROTA.'
 
 def dailyCall(data):
     d = data[0]
