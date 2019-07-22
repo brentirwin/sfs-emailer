@@ -36,6 +36,7 @@ def get_date(date):
   date = date.replace('nd','')
   date = date.replace('rd','')
   date = date.replace('th','')
+  date = date.replace('Augu','August')
   date = datetime.datetime.strptime(date, '%d %B %Y')
   return date.strftime('%A, %B %d')
 

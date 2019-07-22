@@ -1,4 +1,4 @@
-config.py
+src/config*
 __pycache__/
 .*.swp
 *.pyc
